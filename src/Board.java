@@ -1,8 +1,6 @@
 public class Board {
-  Space[][] map;
-
-
+  private Space[][] map;
   public Board(Space[][] map) {
-
+    this.map = map;
   }
 }
