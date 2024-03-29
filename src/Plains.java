@@ -1,12 +1,12 @@
 public class Plains implements Terrain{
   int speedCost = 1;
-  char getSymbol = '-';
+  char symbol = '-';
   public int getSpeedCost() {
     return 0;
   }
 
   @Override
-  public char getSymbol() {
-    return 0;
+  public String getSymbol(){
+    return String.valueOf(symbol);
   }
 }

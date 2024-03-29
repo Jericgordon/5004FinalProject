@@ -5,7 +5,7 @@ public class Space {
   public Space(Terrain terrain) {
     this.terrain = terrain;
   }
-  public char getSymbol() {
+  public String getSymbol() {
     if (!(creature == null)){
       return creature.getSymbol();
     }

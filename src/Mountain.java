@@ -6,8 +6,7 @@ public class Mountain implements Terrain{
     return 0;
   }
 
-  @Override
-  public char getSymbol() {
-    return 0;
+  public String getSymbol() {
+    return String.valueOf(symbol);
   }
 }

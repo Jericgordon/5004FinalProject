@@ -4,7 +4,7 @@ public abstract class Creature {
   public Creature() {
   }
 
-  public char getSymbol() {
-    return symbol;
+  public String getSymbol() {
+    return String.valueOf(symbol);
   }
 }
