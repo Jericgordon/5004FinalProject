@@ -2,7 +2,7 @@ public class Plains implements Terrain{
   int speedCost = 1;
   char symbol = '-';
   public int getSpeedCost() {
-    return 0;
+    return speedCost;
   }
 
   @Override

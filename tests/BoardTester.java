@@ -12,7 +12,7 @@ public class BoardTester {
             "---^^--",
             "-^-^^--",
             "-------"};
-    Space[][] spaceMap = MapCreaterHelper.stringToMap(StrMap);
+    Space[][] spaceMap = MapCreaterHelper.stringToBoardInput(StrMap);
     b = new Board(spaceMap);
   }
 
