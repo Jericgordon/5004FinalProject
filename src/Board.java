@@ -13,8 +13,8 @@ public class Board {
   public void moveCharater(int fromX,int fromY,int toX,int toY){
   }
 
-  public void addCharacter(Creature creature, int toX,int toY){
-    map[toX-1][toY-1].addCharacter(creature);
+  public void addCharacter(Creature creature, int CoordX,int CoordY){
+    map[CoordX-1][CoordY-1].addCharacter(creature);
   }
   public ArrayList<Space> getSpacesWithinDistance(int coordX,int coordY, int distance,boolean ignoreTerrain) {
     if (ignoreTerrain){
@@ -27,10 +27,12 @@ public class Board {
 
   public boolean creatureCanMove(int fromCoordX,int fromCoordY,int toCoordX,int toCoordY) {
     Creature creature = map[fromCoordX-1][fromCoordY-1].getCreature();
-    if
+    if (creature == null){
+      throw new CreatureNotFoundError("No creature found in this square");
+    }
     return getSpacesWithinDistance
-        (fromSpace.getxVal(),fromSpace.getyVal(),creature.getSpeed(),true)
-        .contains(toSpace);
+        (fromCoordX,fromCoordY,creature.getSpeed(),false)
+        .contains(map[toCoordX-1][toCoordY-1]);
   }
 
 

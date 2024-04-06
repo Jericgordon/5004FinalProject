@@ -2,6 +2,7 @@ import org.junit.Test;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class BoardTest{
@@ -36,7 +37,9 @@ public class BoardTest{
   @Test
   public void movementChecker(){
     testCreature = new TestCreature("Test1",CreatureType.Goblin,'T',4);
-    assertTrue(smallBoard.creatureCanMove(testCreature,smallBoard[0][0],));
+    smallBoard.addCharacter(testCreature,1,1);
+    assertTrue(smallBoard.creatureCanMove(1,1,4,1));
+    assertFalse(smallBoard.creatureCanMove(1,1,5,1));
 
   }
 }
