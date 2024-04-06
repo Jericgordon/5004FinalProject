@@ -27,7 +27,7 @@ public class SpaceTester {
     assertEquals("g",s.getSymbol());
 
     //getCharacter
-    assertEquals(g,s.getCharacter());
+    assertEquals(g,s.getCreature());
 
     //hasCharacter
     Space k = new Space(new Plains());

@@ -37,7 +37,7 @@ public class BoardTest{
   @Test
   public void movementChecker(){
     testCreature = new TestCreature("Test1",CreatureType.Goblin,'T',4);
-    smallBoard.addCharacter(testCreature,1,1);
+    smallBoard.addCreature(testCreature,1,1);
     assertTrue(smallBoard.creatureCanMove(1,1,4,1));
     assertFalse(smallBoard.creatureCanMove(1,1,5,1));
 

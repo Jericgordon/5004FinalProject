@@ -1,19 +1,31 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Board {
-  private Space[][] map;
+  private final Space[][] map; //This can be final as we'll replace the object
   public Board(Space[][] map) {
     this.map = map;
   }
 
   private Space getSpace(int coodX,int coodY){
-    return map[coodX][coodY];
+    return map[coodX -1][coodY -1];
   }
 
-  public void moveCharater(int fromX,int fromY,int toX,int toY){
+  public  HashMap<Creature,Point> getCreatureList(){
+    HashMap<Creature,Point> creatures = new HashMap<>();
+    for (int indexX = 0;indexX < map.length; indexX++){
+      for (int indexY = 0; indexY <map[0].length;indexY++){
+        if (map[indexX][indexY].hasCreature()){
+          creatures.put(map[indexX][indexY].getCreature(),new Point(indexX,indexY));
+        }
+      }
+    }
+    return creatures;
+  }
+  public void moveCreature(int fromX,int fromY,int toX,int toY){
   }
 
-  public void addCharacter(Creature creature, int CoordX,int CoordY){
+  public void addCreature(Creature creature, int CoordX,int CoordY){
     map[CoordX-1][CoordY-1].addCharacter(creature);
   }
   public ArrayList<Space> getSpacesWithinDistance(int coordX,int coordY, int distance,boolean ignoreTerrain) {
