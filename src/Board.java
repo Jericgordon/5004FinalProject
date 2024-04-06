@@ -1,7 +1,13 @@
+import java.util.ArrayList;
+
 public class Board {
   private Space[][] map;
   public Board(Space[][] map) {
     this.map = map;
+  }
+
+  private Space getSpace(int coodX,int coodY){
+    return map[coodX][coodY];
   }
 
   public void moveCharater(int fromX,int fromY,int toX,int toY){
@@ -10,6 +16,24 @@ public class Board {
   public void addCharacter(Creature creature, int toX,int toY){
     map[toX-1][toY-1].addCharacter(creature);
   }
+  public ArrayList<Space> getSpacesWithinDistance(int coordX,int coordY, int distance,boolean ignoreTerrain) {
+    if (ignoreTerrain){
+      return MatrixMovementHelper.validMovesIgnoreTerrain(this.map,coordX,coordY,distance);
+    }
+    return MatrixMovementHelper.validMovesCheckTerrain(this.map,coordX,coordY,distance);
+  }
+
+
+
+  public boolean creatureCanMove(int fromCoordX,int fromCoordY,int toCoordX,int toCoordY) {
+    Creature creature = map[fromCoordX-1][fromCoordY-1].getCreature();
+    if
+    return getSpacesWithinDistance
+        (fromSpace.getxVal(),fromSpace.getyVal(),creature.getSpeed(),true)
+        .contains(toSpace);
+  }
+
+
   @Override
   public String toString(){
     //The board is stored in Cartesian (x,y) coordinates. To convert that to a string, we have to

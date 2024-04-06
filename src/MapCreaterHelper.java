@@ -55,41 +55,6 @@ public class MapCreaterHelper {
     }
     return gameMap;
     }
-  public static Graph<Space> boardToGraph(Space[][] currentBoardState,int coordX,int coordY){
-    //map the board to a 2d array of nodes
-    Node<Space>[][] mappedToNodeArrays = new Node[currentBoardState.length]
-                                                 [currentBoardState[0].length];
-    for (int x = 0;x < currentBoardState.length;x++){
-      for (int y = 0; y<currentBoardState[0].length;y++){
-        mappedToNodeArrays[x][y] = new Node<Space>(currentBoardState[x][y]);
-      }
-    }
-    //using this 2d array, loop though and set connections
-    for (int x = 0;x < currentBoardState.length-1;x++) {
-      for (int y = 0; y < currentBoardState[0].length - 1; y++) {
-        /* Consider any matrix, where we want to set both the correct vertical and horizontal
-          connections. Our two way link function ensures that if we link node a->b,b->a as well.
-          So, we only need to hit every link in one direction.
-
-          Another way to picture this is just a cartesian plane with dots, with the goal of
-          connecting all dots in a quadrant. If we connect all x with x+1, and y with y+1,
-          we'll hit every dot, because every line can be seen as going from some lower value
-          x to some higher value x+1, and likewise for y.
-
-          A simpler way to see this, is that you can draw a cartesian plane with your pencil only
-          going one way for the H lines, and another way for the V lines.
-         *
-         */
-        mappedToNodeArrays[x][y].addTwoWayLink(mappedToNodeArrays[x + 1][y]);
-        mappedToNodeArrays[x][y].addTwoWayLink(mappedToNodeArrays[x][y + 1]);
-      }
-    }
-    return new Graph<Space>(mappedToNodeArrays[coordX -1][coordY-1]); //-1 to convert coordinates to index
-
-  }
-
-
-
 }
 
 

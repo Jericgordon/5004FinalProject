@@ -27,6 +27,7 @@ public class MapCreaterHelperTests {
     assertEquals(1, spaceMap[0][0].getyVal());
     assertEquals(3, spaceMap[3][2].getyVal());
   }
+
 }
 
 

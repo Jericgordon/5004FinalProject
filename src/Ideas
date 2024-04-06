@@ -1,0 +1,7 @@
+~Make the Filter algorithm an inplace algorithm, to use only one arraylist, and an inplace index
+tracker with addfront,addback
+
+~Implement binary search for any checking if node is in list, as well as storing.
+
+~Implement Dykstras on the arrays; Right now it chases down all possible movement paths. By
+using a hashmap we can limit that.
