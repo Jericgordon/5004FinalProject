@@ -57,6 +57,9 @@ public class Space {
   public boolean hasCreature(){
     return (!(creature == null));
   }
+  public boolean hasCreature(Creature c){
+    return c.equals(creature);
+  }
   public void addCharacter(Creature creature) throws IllegalMovementError{//Add illegal movement error
     if (hasCreature){
       throw new IllegalMovementError("Two Characters cannot be placed on the same space");
@@ -66,9 +69,6 @@ public class Space {
   }
   public void removeCharacter(){
     this.creature = null;
-  }
-  public Creature getCharacter(){
-    return this.creature;
   }
 
   @Override
