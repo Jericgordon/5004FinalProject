@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Board {
   private final Space[][] map; //This can be final as we'll replace the object
@@ -11,12 +12,14 @@ public class Board {
     return map[coodX -1][coodY -1];
   }
 
-  public  HashMap<Creature,Point> getCreatureList(){
-    HashMap<Creature,Point> creatures = new HashMap<>();
+  public LinkedList<Creature> getCreatureList(){
+    LinkedList<Creature> creatures = new LinkedList<>();
     for (int indexX = 0;indexX < map.length; indexX++){
       for (int indexY = 0; indexY <map[0].length;indexY++){
         if (map[indexX][indexY].hasCreature()){
-          creatures.put(map[indexX][indexY].getCreature(),new Point(indexX,indexY));
+          Creature temp = map[indexX][indexY].getCreature();
+          temp.setXY(indexX,indexY);
+          creatures.add(temp);
         }
       }
     }

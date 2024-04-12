@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 public class TestBoard implements BoardSetTwoPlayer{
 
@@ -14,12 +13,12 @@ public class TestBoard implements BoardSetTwoPlayer{
     return b;
   }
   @Override
-  public HashMap<Creature,Point> getCreaturesP1() {
+  public LinkedList<Creature> getCreaturesP1() {
     return null;
   }
 
   @Override
-  public HashMap<Creature,Point> getCreaturesP2() {
+  public LinkedList<Creature> getCreaturesP2() {
     return null;
   }
 }

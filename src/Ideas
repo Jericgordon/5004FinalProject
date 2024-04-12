@@ -5,3 +5,7 @@ tracker with addfront,addback
 
 ~Implement Dykstras on the arrays; Right now it chases down all possible movement paths. By
 using a hashmap we can limit that.
+
+~Refactor to MVC
+
+~Refactor monster lists to Nodes. Use Java's inbuilt system for this

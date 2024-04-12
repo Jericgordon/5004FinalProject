@@ -7,6 +7,7 @@ public abstract class Creature {
   CreatureType creatureType;
   char symbol;
   int speed;
+  Point point;
 
   public Creature(String name, CreatureType creatureType, char symbol,int speed) {
     this.name = name;
@@ -14,6 +15,19 @@ public abstract class Creature {
     this.symbol = symbol;
     this.setSpeed(speed);
     this.id = ++globalID;
+  }
+  public Creature(String name, CreatureType creatureType, char symbol,int speed,int x, int y) {
+    this.name = name;
+    this.creatureType = creatureType;
+    this.symbol = symbol;
+    this.setSpeed(speed);
+    this.id = ++globalID;
+    this.point = new Point(x,y);
+  }
+
+
+  public void setXY(int x, int y) {
+    this.point = new Point(x,y);
   }
 
   public String getSymbol() {
