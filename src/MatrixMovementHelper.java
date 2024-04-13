@@ -25,7 +25,7 @@ public class MatrixMovementHelper {
     return ignoreTerrainMovementHelper(matrix,returnList,x,y,speed);
   }
 
-  public static ArrayList<Space>validMovesCheckTerrain
+  public static ArrayList<Space> validMovesCheckTerrain
       (Space[][] matrix,int coordX,int coordY,int speed){
     int x = coordX -1;//convert coordinates to index
     int y = coordY -1;

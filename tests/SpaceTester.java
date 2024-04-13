@@ -35,7 +35,7 @@ public class SpaceTester {
     assertFalse(k.hasCreature());
 
     //removeCharacter test
-    s.removeCharacter();
+    s.removeCreature();
     assertFalse(s.hasCreature());
 
   }

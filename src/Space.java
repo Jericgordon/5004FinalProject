@@ -55,19 +55,20 @@ public class Space {
   }
 
   public boolean hasCreature(){
-    return (!(creature == null));
+    return hasCreature;
   }
   public boolean hasCreature(Creature c){
     return c.equals(creature);
   }
   public void addCharacter(Creature creature) throws IllegalMovementError{//Add illegal movement error
     if (hasCreature){
-      throw new IllegalMovementError("Two Characters cannot be placed on the same space");
+      throw new DoublePlacementError("Two Characters cannot be placed on the same space");
     }
-    hasCreature = false;
+    hasCreature = true;
     this.creature = creature;
   }
-  public void removeCharacter(){
+  public void removeCreature(){
+    this.hasCreature = false;
     this.creature = null;
   }
 

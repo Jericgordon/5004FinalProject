@@ -1,11 +1,18 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Board {
   private final Space[][] map; //This can be final as we'll replace the object
   public Board(Space[][] map) {
     this.map = map;
+  }
+
+
+  public int getXCoordMax(){
+    return map.length;
+  }
+  public int getYCoordMax(){
+    return map[0].length;
   }
 
   private Space getSpace(int coodX,int coodY){
@@ -18,17 +25,65 @@ public class Board {
       for (int indexY = 0; indexY <map[0].length;indexY++){
         if (map[indexX][indexY].hasCreature()){
           Creature temp = map[indexX][indexY].getCreature();
-          temp.setXY(indexX,indexY);
+          //temp.setXY(indexX,indexY);
           creatures.add(temp);
         }
       }
     }
     return creatures;
   }
-  public void moveCreature(int fromX,int fromY,int toX,int toY){
+
+  private void checkXYinput(int xCoord,int yCoord) throws IllegalArgumentException{
+    if ((xCoord < 0) || (xCoord > getXCoordMax())){
+      throw new IllegalArgumentException("Invalid X Coordinate");
+    }
+    if ((yCoord < 0) || (yCoord > getYCoordMax())){
+      throw new IllegalArgumentException("Invalid Y Coordinate");
+    }
   }
 
-  public void addCreature(Creature creature, int CoordX,int CoordY){
+
+
+  public void moveCreature(int fromXCoord,int fromYCoord,int toXCoord,int toYCoord) throws IllegalArgumentException,IllegalMovementError,NullPointerException{
+    //Check to see if these are valid inputs. Throws IllegalArgumentException if they are not
+    checkXYinput(fromXCoord,fromYCoord);
+    checkXYinput(toXCoord,toYCoord);
+
+    //see if the character is there.
+    //GetCreature throws NullPointerException if there isn't a character there to get
+    Creature toMoveCreature = getAndRemoveCreature(fromXCoord,fromYCoord);
+
+
+    //Get an Arraylist of all valid moves for that character.
+    //this step allows 2 characters on the same space; that will be checked for later
+    ArrayList<Space> validMovesArraylist = MatrixMovementHelper.validMovesCheckTerrain
+        (map,toMoveCreature.getXCoord(),toMoveCreature.getYCoord(),toMoveCreature.getSpeed());
+
+    if (!validMovesArraylist.contains(map[toXCoord-1][toYCoord-1])){
+      throw new IllegalMovementError("Given Character cannot move there");
+    }
+    //Check if the given creature can actually move there
+    this.addCreature(toMoveCreature,toXCoord,toYCoord);
+  }
+
+  public Creature getCreature(int xCoord, int yCoord) throws NullPointerException{
+    checkXYinput(xCoord,yCoord);
+    Creature c = map[xCoord -1][yCoord -1].getCreature();
+    if (c == null){
+      throw new NullPointerException("No creature found at this coordinate");
+    }
+    return c;
+  }
+
+  public Creature getAndRemoveCreature(int xCoord, int yCoord) throws NullPointerException{
+    Creature c = getCreature(xCoord,yCoord); //throws null pointer if creature not there
+    map[xCoord -1][yCoord -1].removeCreature();
+    return c;
+  }
+
+  public void addCreature(Creature creature, int CoordX,int CoordY) throws DoublePlacementError{
+    //A space is being asked to add the creature. If it has another creature already, it will throw
+    //an error
     map[CoordX-1][CoordY-1].addCharacter(creature);
   }
   public ArrayList<Space> getSpacesWithinDistance(int coordX,int coordY, int distance,boolean ignoreTerrain) {
@@ -40,10 +95,10 @@ public class Board {
 
 
 
-  public boolean creatureCanMove(int fromCoordX,int fromCoordY,int toCoordX,int toCoordY) {
+  public boolean creatureCanMove(int fromCoordX,int fromCoordY,int toCoordX,int toCoordY) throws NullPointerException {
     Creature creature = map[fromCoordX-1][fromCoordY-1].getCreature();
     if (creature == null){
-      throw new CreatureNotFoundError("No creature found in this square");
+      throw new NullPointerException("No creature found in this square");
     }
     return getSpacesWithinDistance
         (fromCoordX,fromCoordY,creature.getSpeed(),false)

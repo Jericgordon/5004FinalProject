@@ -6,6 +6,6 @@ public class Main {
 
   public static void main(String[] args) {
     Controller c = new Controller(new InputStreamReader(System.in),System.out);
-    c.playGame(new TwoPlayerGameModel());
+    c.playGame(new TwoPlayerGameModel(),new TestBoard());
   }
 }

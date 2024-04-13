@@ -29,9 +29,19 @@ public abstract class Creature {
   public void setXY(int x, int y) {
     this.point = new Point(x,y);
   }
+  public int getXCoord(){
+    return this.point.getXCoord();
+  }
+  public int getYCoord(){
+    return this.point.getYCoord();
+  }
 
   public String getSymbol() {
     return String.valueOf(symbol);
+  }
+
+  public String getName() {
+    return name;
   }
 
   public int getId() {
@@ -50,6 +60,12 @@ public abstract class Creature {
   }
 
   @Override
+  public String toString(){
+    return String.format("%s (Symbol) %s\nSpeed: %d\n Located at (%d,%d)" ,
+        this.name,this.symbol,this.speed,this.getXCoord(),this.getYCoord());
+  }
+
+  @Override
   public boolean equals(Object o){
     if (this == o){
       return true;
@@ -58,13 +74,12 @@ public abstract class Creature {
       return false;
     }
     Creature compareCreature = (Creature) o;
-    return (this.getId() == compareCreature.getId());
+    return ((this.name == compareCreature.getName() &&
+        (this.point.equals(compareCreature.point))));
   }
   @Override
   public int hashCode(){
     return Objects.hashCode(id);
-
-
   }
 }
 

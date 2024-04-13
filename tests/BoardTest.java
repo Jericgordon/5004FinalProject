@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -10,6 +12,8 @@ public class BoardTest{
   Board smallBoard;
 
   TestCreature testCreature;
+  Goblin g;
+  Goblin d;
 
   @Before
   public void setup(){
@@ -27,6 +31,11 @@ public class BoardTest{
 
     Space[][] spaceMap2 =MapCreaterHelper.stringToBoardInput(StrMapElectricBoogaloo);
     smallBoard =new Board(spaceMap2);
+
+    g = new Goblin("Timn");
+    g.setXY(1,1);
+    d = new Goblin("Russel T Davies");
+    d.setXY(4,4);
   }
 
   @Test
@@ -40,7 +49,17 @@ public class BoardTest{
     smallBoard.addCreature(testCreature,1,1);
     assertTrue(smallBoard.creatureCanMove(1,1,4,1));
     assertFalse(smallBoard.creatureCanMove(1,1,5,1));
+  }
 
+  @Test
+  public void getCreaturesListTest() {
+    b.addCreature(g,g.getXCoord(),g.getYCoord());
+    b.addCreature(d,d.getXCoord(),d.getYCoord());
+
+    LinkedList<Creature> currentList = new LinkedList<>();
+    currentList = b.getCreatureList();
+    assertTrue(currentList.contains(g));
+    assertTrue(currentList.contains(d));
   }
 }
 

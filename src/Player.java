@@ -13,6 +13,9 @@ public class Player {
     this.creatures = creatures;
     this.name = name;
   }
+  public LinkedList<Creature> getCreatures(){
+    return this.creatures;
+  }
 
   public String getName() {
     return name;
