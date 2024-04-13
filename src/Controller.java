@@ -29,8 +29,7 @@ public class Controller {
       Scanner s = new Scanner(in);
       String command = s.nextLine();
       try{
-        PlayerAction action = PlayerAction.valueOf(command);
-        return action;
+        return PlayerAction.valueOf(command);
       } catch (IllegalArgumentException illegalArgumentException){
         out.append("Invalid command, Please try again");
         return getPlayerAction();

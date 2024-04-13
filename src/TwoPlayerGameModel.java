@@ -29,6 +29,10 @@ public class TwoPlayerGameModel implements GameModel {
     return getCreatureInformation(getCurrentCreature().getXCoord(), getCurrentCreature().getYCoord());
   }
 
+  /**
+   *
+   * @return - the current creature object
+   */
   private Creature getCurrentCreature(){
     return currentPlayerObject().getCreatures().get(indexOfCreatureCurrentPlayerIsOn);
   }
