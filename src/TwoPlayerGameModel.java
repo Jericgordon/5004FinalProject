@@ -12,6 +12,11 @@ public class TwoPlayerGameModel implements GameModel {
     whoseTurnItIs = PlayerNumber.player1;
     indexOfCreatureCurrentPlayerIsOn = 0;
   }
+
+  public void currentCreatureAttack(int x, int y, int attackIndex) {
+
+  }
+
   public int getXMaxCoord(){
     return board.getXCoordMax();
   }

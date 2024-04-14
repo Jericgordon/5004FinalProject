@@ -42,7 +42,7 @@ public class Controller {
 
   public void playGame(GameModel m,BoardSetTwoPlayer p){
     try { //Try catch just for IO exception with in/out setup
-      //set up the game
+        //set up the game
       setUpGame(m,p);
       while (!m.isGameOver()){
         //display board

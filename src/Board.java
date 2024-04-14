@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.function.Predicate;
 
 public class Board {
   private final Space[][] map; //This can be final as we'll replace the object
@@ -17,6 +18,18 @@ public class Board {
 
   private Space getSpace(int coodX,int coodY){
     return map[coodX -1][coodY -1];
+  }
+
+  public LinkedList<Space> filter(Predicate<Space> p){
+    LinkedList<Space> returnList = new LinkedList<>();
+    for (int indexX = 0;indexX < map.length; indexX++){
+      for (int indexY = 0; indexY <map[0].length;indexY++){
+        if (p.test(map[indexX][indexY])){
+          returnList.add(map[indexX][indexY]);
+        }
+      }
+    }
+    return returnList;
   }
 
   public LinkedList<Creature> getCreatureList(){
