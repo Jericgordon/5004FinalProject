@@ -1,37 +1,42 @@
 import java.util.LinkedList;
 import java.util.Objects;
 import javax.ws.rs.core.Link;
+import org.jooq.Attachable;
 
 public abstract class Creature {
-  private static int globalID;
-  private int id;
-  String name;
-  CreatureType creatureType;
-  char symbol;
-  int speed;
-  Point point;
-  int hitPoints;
-  LinkedList<IAttack> attacks;
+  private String name;
+  private final CreatureType creatureType;
+  private char symbol;
+  private int speed;
+  private Point point;
+  private int hitPoints;
+  private PlayerNumber owner;
+  private LinkedList<IAttack> attacks;
 
-  public Creature(String name, CreatureType creatureType, char symbol,int speed, int hitPoints) {
+  public Creature(PlayerNumber owner, String name, CreatureType creatureType, char symbol,int speed, int hitPoints) {
     this.name = name;
     this.creatureType = creatureType;
     this.symbol = symbol;
     this.setSpeed(speed);
-    this.id = ++globalID;
     this.hitPoints = hitPoints;
     attacks = new LinkedList<>();
+    this.owner = owner;
   }
-  public Creature(String name, CreatureType creatureType, char symbol,int speed, int hitPoints, int x, int y) {
+  public Creature(PlayerNumber owner, String name, CreatureType creatureType, char symbol,int speed, int hitPoints, int x, int y) {
     this.name = name;
     this.creatureType = creatureType;
     this.symbol = symbol;
     this.setSpeed(speed);
-    this.id = ++globalID;
     this.point = new Point(x,y);
     this.hitPoints = hitPoints;
     attacks = new LinkedList<>();
+    this.owner = owner;
   }
+
+  public PlayerNumber getPlayerNumber() {
+    return owner;
+  }
+
   public Creature takeDamage(int damage){
     hitPoints -= damage;
     return this;
@@ -39,6 +44,10 @@ public abstract class Creature {
 
   public void addAttack(IAttack attack){
     this.attacks.add(attack);
+  }
+
+  public IAttack getAttack(int index) throws IndexOutOfBoundsException{
+    return attacks.get(index);
   }
 
   public void setXY(int x, int y) {
@@ -59,8 +68,8 @@ public abstract class Creature {
     return name;
   }
 
-  public int getId() {
-    return id;
+  public int getHitPoints() {
+    return hitPoints;
   }
 
   public void setSpeed(int speed) {
@@ -76,8 +85,8 @@ public abstract class Creature {
 
   @Override
   public String toString(){
-    return String.format("%s (Symbol) %s\nSpeed: %d\n Located at (%d,%d)" ,
-        this.name,this.symbol,this.speed,this.getXCoord(),this.getYCoord());
+    return String.format("%s (Symbol) %s\nSpeed: %d\nHealth: %d\n Located at (%d,%d)" ,
+        this.name,this.symbol,this.speed,this.hitPoints,this.getXCoord(),this.getYCoord());
   }
 
   @Override
@@ -90,11 +99,11 @@ public abstract class Creature {
     }
     Creature compareCreature = (Creature) o;
     return ((this.name == compareCreature.getName() &&
-        (this.point.equals(compareCreature.point))));
+        this.speed == compareCreature.getSpeed()));
   }
   @Override
   public int hashCode(){
-    return Objects.hashCode(id);
+    return Objects.hashCode(this);
   }
 }
 

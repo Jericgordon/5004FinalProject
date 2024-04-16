@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class MeleAttack extends IAttack{
   public MeleAttack(int damage){
-    super((c)-> c.takeDamage(damage),1);
+    super(((c)-> c.takeDamage(damage)),1);
     super.setAttackDescription(damage,1);
   }
 
@@ -10,7 +10,8 @@ public class MeleAttack extends IAttack{
     super((c)->
         {Random r = new Random();
           int damage = r.nextInt(minDamage,maxDamage);
-          return c.takeDamage(damage);},1);
+          c.takeDamage(damage);
+          return null;},1);
     super.setAttackDescription(minDamage,maxDamage,1);
   }
 }

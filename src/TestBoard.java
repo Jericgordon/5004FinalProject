@@ -16,7 +16,7 @@ public class TestBoard implements BoardSetTwoPlayer{
   }
   @Override
   public LinkedList<Creature> getCreaturesP1() {
-    Goblin g = new Goblin("Timn");
+    Goblin g = new Goblin(PlayerNumber.player1,"Timn");
     g.setXY(1,1);
     LinkedList<Creature> returnList = new LinkedList<>();
     returnList.add(g);
@@ -25,7 +25,7 @@ public class TestBoard implements BoardSetTwoPlayer{
 
   @Override
   public LinkedList<Creature> getCreaturesP2() {
-    Goblin g = new Goblin("Russel T. Davies");
+    Goblin g = new Goblin(PlayerNumber.player2,"Russel T. Davies");
     g.setXY(4,4);
     LinkedList<Creature> returnList = new LinkedList<>();
     returnList.add(g);

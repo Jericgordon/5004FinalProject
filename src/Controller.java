@@ -39,11 +39,10 @@ public class Controller {
       throw new IllegalStateException("Reconfigure setup please");
     }
   }
-
   public void playGame(GameModel m,BoardSetTwoPlayer p){
     try { //Try catch just for IO exception with in/out setup
         //set up the game
-      setUpGame(m,p);
+      this.setUpGame(m,p);
       while (!m.isGameOver()){
         //display board
         out.append(m.getBoardString());
@@ -67,8 +66,14 @@ public class Controller {
                 toMove = getXYFromPlayer(m.getXMaxCoord(),m.getYMaxCoord());
               }
               m.moveCurrentCreature(toMove.getXCoord(), toMove.getYCoord());
-
+              break;
             case Attack:
+              Point target = getXYFromPlayer(m.getXMaxCoord(),m.getYMaxCoord());
+              while (!m.canCurrentCreatureAttack(target.getXCoord(),target.getYCoord(),0)){
+                out.append("Cannot target that square, out of reach");
+                target = getXYFromPlayer(m.getXMaxCoord(),m.getYMaxCoord());
+              }
+              m.currentCreatureAttack(target.getXCoord(),target.getYCoord(),0);
               break;
             case Info:
               Point info = getXYFromPlayer(m.getXMaxCoord(),m.getYMaxCoord());

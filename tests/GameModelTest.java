@@ -41,17 +41,17 @@ public class GameModelTest {
 
   @Test
   public void getCreatureInfoTest() {
-    Goblin g = new Goblin("Timn");
+    Goblin g = new Goblin(PlayerNumber.player1,"Timn");
     g.setXY(1,1);
     assertEquals(g.toString(),m.getCreatureInformation(1,1));
   }
 
   @Test
   public void getCurrentCreatureTest() {
-    Goblin g = new Goblin("Timn");
+    Goblin g = new Goblin(PlayerNumber.player1,"Timn");
     g.setXY(1,1);
 
-    Goblin d = new Goblin("Russel T Davies");
+    Goblin d = new Goblin(PlayerNumber.player1,"Russel T Davies");
     d.setXY(4,4);
 
     assertEquals(g.toString(),m.getCreatureInformation(1,1));
@@ -60,7 +60,34 @@ public class GameModelTest {
     assertEquals(g.toString(),m.getCurrentCreatureInformation());
 
     assertFalse(m.isGameOver());
+  }
 
+  @Test
+  public void MoveTest() {
+    Goblin g = new Goblin(PlayerNumber.player1,"Timn");
+    g.setXY(1,1);
 
+    Goblin d = new Goblin(PlayerNumber.player2,"Russel T Davies");
+    d.setXY(4,4);
+    //move c1 -> 2,2
+    m.moveCurrentCreature(2,2);
+    m.nextTurn();
+
+    //move c2 -> 2,3
+    m.moveCurrentCreature(2,3);
+    assertFalse(m.isGameOver());
+
+    m.nextTurn();
+    m.currentCreatureAttack(2,3,0);
+
+    assertFalse(m.isGameOver());
+    m.nextTurn();
+
+    m.currentCreatureAttack(2,2,0);
+    assertFalse(m.isGameOver());
+
+    m.currentCreatureAttack(2,3,0);
+    m.nextTurn();
+    assertTrue(m.isGameOver());
   }
 }

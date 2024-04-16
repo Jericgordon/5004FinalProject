@@ -13,8 +13,28 @@ public class TwoPlayerGameModel implements GameModel {
     indexOfCreatureCurrentPlayerIsOn = 0;
   }
 
-  public void currentCreatureAttack(int x, int y, int attackIndex) {
+  public void currentCreatureAttack(int toXCoord, int toYCoord, int attackIndex)throws IllegalArgumentException,IndexOutOfBoundsException{
 
+    if (!canCurrentCreatureAttack(toXCoord,toYCoord,attackIndex)){
+      throw new IllegalArgumentException("Cannot reach that space: Invalid attack");
+    }
+    Creature c = getCurrentCreature();
+    Creature t = board.getCreature(toXCoord,toYCoord);
+    c.getAttack(attackIndex).attack(t);
+  }
+
+
+  public boolean canCurrentCreatureAttack(int toXCoord, int toYCoord, int attackIndex) throws IndexOutOfBoundsException {
+    //if the attack index is not valid, throw an IndexOutOfBouds exception
+    int range = getCurrentCreature().getAttack(attackIndex).getRange();
+    return board.canCreatureAttack(
+        this.getCurrentCreature().getXCoord(),
+        this.getCurrentCreature().getYCoord(),
+        toXCoord,toYCoord,range);
+  }
+
+  public boolean isThereACreatureOnThisSquare(int xCoord,int yCoord){
+    return board.isThereACreatureOnThisSquare(xCoord,yCoord);
   }
 
   public int getXMaxCoord(){
@@ -76,23 +96,17 @@ public class TwoPlayerGameModel implements GameModel {
   board, and a player, and removes any creatures from the player's list that don't appear on the
   board.
    */
-  private void updateCreaturesForPlayer
-      (Player player,LinkedList<Creature> currentListOfCreatures){
-    //queue creatures for removal so we don't change size of list during iteration
-    LinkedList<Creature> toRemove = new LinkedList<>();
-      for (int index = 0; index<player.getCreatures().size();index++){
-      Creature creatureToEvaluate = player.getCreatures().get(index);
-      if (!(currentListOfCreatures.contains(creatureToEvaluate))){
-        toRemove.add(creatureToEvaluate);
-      }
-    }
-    //actually remove those creatures that were queued up
-    for (Creature creature : toRemove) {
-      player.getCreatures().remove(creature);
-    }
+  private void updateCreaturesForPlayer(Player player,LinkedList<Creature> currentListOfCreatures) {
+    //Get list of all creatures
+    LinkedList<Creature> returnList = new LinkedList<>();
+
+   for (Creature c: this.board.getCreatureList()){
+     if (c.getPlayerNumber() == whoseTurnItIs){
+       returnList.add(c);
+     }
+   }
+    player.setCreatures(returnList);
   }
-  /* updates the current list of creatures for all players in the game.
-   */
 
   public void nextTurn(){
     //update Player Number
@@ -102,8 +116,13 @@ public class TwoPlayerGameModel implements GameModel {
     else{
       whoseTurnItIs = PlayerNumber.player1;
     }
+    //Clear all dead off of the board
+    board.clearDeadCreatures();
+
     // update Player's creature list
-    this.updateCreaturesForPlayer(this.currentPlayerObject(),board.getCreatureList());
+    this.updateCreaturesForPlayer(player1,board.getCreatureList());
+    this.updateCreaturesForPlayer(player2,board.getCreatureList());
+
     //update creature index
     indexOfCreatureCurrentPlayerIsOn = 0;
 

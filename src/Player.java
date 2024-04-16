@@ -17,6 +17,10 @@ public class Player {
     return this.creatures;
   }
 
+  public void setCreatures(LinkedList<Creature> creatures) {
+    this.creatures = creatures;
+  }
+
   public String getName() {
     return name;
   }

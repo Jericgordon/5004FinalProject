@@ -9,3 +9,6 @@ using a hashmap we can limit that.
 ~Refactor to MVC
 
 ~Refactor monster lists to Nodes. Use Java's inbuilt system for this
+
+
+//Creature set location after move is currently broken

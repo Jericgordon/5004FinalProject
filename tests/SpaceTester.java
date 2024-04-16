@@ -22,7 +22,7 @@ public class SpaceTester {
   public void creatureTestsTest(){
     //SymbolTests, AddCharacter
     assertEquals("^",s.getSymbol());
-    Goblin g = new Goblin("Timothy");
+    Goblin g = new Goblin(PlayerNumber.player1,"Timothy");
     s.addCharacter(g);
     assertEquals("g",s.getSymbol());
 
@@ -41,7 +41,7 @@ public class SpaceTester {
   }
   @Test (expected = IllegalMovementError.class)
   public void badAddCharacter(){
-    Goblin g = new Goblin("Timothy");
+    Goblin g = new Goblin(PlayerNumber.player1,"Timothy");
     s.addCharacter(g);
     s.addCharacter(g);
   }

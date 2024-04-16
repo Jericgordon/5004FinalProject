@@ -7,10 +7,14 @@ public abstract class IAttack {
   private String attackDescription;
 
   public IAttack(Function <Creature,Creature> attack, int range){
-
     this.attack = attack;
     this.range = range;
   }
+
+  public int getRange() {
+    return range;
+  }
+
   public Creature attack(Creature c){
     return attack.apply(c);
   }
