@@ -31,7 +31,7 @@ public class Controller {
       try{
         return PlayerAction.valueOf(command);
       } catch (IllegalArgumentException illegalArgumentException){
-        out.append("Invalid command, Please try again");
+        out.append("Invalid command, Please try again\n");
         return getPlayerAction();
       }
     } catch (IOException ioException){
@@ -62,7 +62,7 @@ public class Controller {
             case Move:
               Point toMove = getXYFromPlayer(m.getXMaxCoord(),m.getYMaxCoord());
               while (!m.canCurrentCreatureMove(toMove.getXCoord(),toMove.getYCoord())) {
-                out.append("Not enough movement to reach there. Try again");
+                out.append("Not enough movement to reach there. Try again\n");
                 toMove = getXYFromPlayer(m.getXMaxCoord(),m.getYMaxCoord());
               }
               m.moveCurrentCreature(toMove.getXCoord(), toMove.getYCoord());
@@ -107,13 +107,13 @@ public class Controller {
       out.append("What is the target X coordinate for action");
       int x = s.nextInt();
       if (x > xLimit){
-        out.append("Invalid input, Please try again");
+        out.append("Invalid input, Please try again\n");
         return getXYFromPlayer(xLimit,yLimit);
       }
       out.append("What is the target Y coordinate for action");
       int y = s.nextInt();
       if (y > yLimit) {
-        out.append("Invalid input, Please try again");
+        out.append("Invalid input, Please try again\n");
         return getXYFromPlayer(xLimit, yLimit);
       }
       return new Point(x,y);

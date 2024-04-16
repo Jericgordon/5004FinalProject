@@ -21,6 +21,7 @@ public class TwoPlayerGameModel implements GameModel {
     Creature c = getCurrentCreature();
     Creature t = board.getCreature(toXCoord,toYCoord);
     c.getAttack(attackIndex).attack(t);
+    indexOfCreatureCurrentPlayerIsOn++;
   }
 
 
@@ -96,12 +97,12 @@ public class TwoPlayerGameModel implements GameModel {
   board, and a player, and removes any creatures from the player's list that don't appear on the
   board.
    */
-  private void updateCreaturesForPlayer(Player player,LinkedList<Creature> currentListOfCreatures) {
+  private void updateCreaturesForPlayer(Player player,PlayerNumber number,LinkedList<Creature> currentListOfCreatures) {
     //Get list of all creatures
     LinkedList<Creature> returnList = new LinkedList<>();
 
    for (Creature c: this.board.getCreatureList()){
-     if (c.getPlayerNumber() == whoseTurnItIs){
+     if (c.getPlayerNumber() == number){
        returnList.add(c);
      }
    }
@@ -120,8 +121,8 @@ public class TwoPlayerGameModel implements GameModel {
     board.clearDeadCreatures();
 
     // update Player's creature list
-    this.updateCreaturesForPlayer(player1,board.getCreatureList());
-    this.updateCreaturesForPlayer(player2,board.getCreatureList());
+    this.updateCreaturesForPlayer(player1,PlayerNumber.player1,board.getCreatureList());
+    this.updateCreaturesForPlayer(player2,PlayerNumber.player2,board.getCreatureList());
 
     //update creature index
     indexOfCreatureCurrentPlayerIsOn = 0;
@@ -159,9 +160,6 @@ public class TwoPlayerGameModel implements GameModel {
   public boolean canCurrentCreatureMove(int toXcoord,int toYCoord) throws NullPointerException{
     Creature c = getCurrentCreature();
     return board.creatureCanMove(c.getXCoord(),c.getYCoord(),toXcoord,toYCoord);
-  }
-
-  public void currentCreatureAttack(int x, int y){
   }
 
   public boolean isGameOver(){
