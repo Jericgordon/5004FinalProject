@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Controller {
+public class Controller implements ControllerInterface{
   Readable in;
   Appendable out;
 

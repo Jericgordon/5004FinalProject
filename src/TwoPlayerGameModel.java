@@ -26,6 +26,11 @@ public class TwoPlayerGameModel implements GameModel {
 
 
   public boolean canCurrentCreatureAttack(int toXCoord, int toYCoord, int attackIndex) throws IndexOutOfBoundsException {
+    //check to make sure there's a creature on that square
+    if(!board.isThereACreatureOnThisSquare(toXCoord,toYCoord)){
+      return false;
+    }
+
     //if the attack index is not valid, throw an IndexOutOfBouds exception
     int range = getCurrentCreature().getAttack(attackIndex).getRange();
     return board.canCreatureAttack(
