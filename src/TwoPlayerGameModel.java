@@ -16,7 +16,7 @@ public class TwoPlayerGameModel implements GameModel {
   public void currentCreatureAttack(int toXCoord, int toYCoord, int attackIndex)throws IllegalArgumentException,IndexOutOfBoundsException{
 
     if (!canCurrentCreatureAttack(toXCoord,toYCoord,attackIndex)){
-      throw new IllegalArgumentException("Cannot reach that space: Invalid attack");
+      throw new IllegalArgumentException("Invalid attack");
     }
     Creature c = getCurrentCreature();
     Creature t = board.getCreature(toXCoord,toYCoord);

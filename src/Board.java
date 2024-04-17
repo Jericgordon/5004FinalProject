@@ -42,6 +42,7 @@ public class Board {
     }
     return returnList;
   }
+
   public void clearDeadCreatures(){
     LinkedList<Creature> toRemove = getCreatureList();
     toRemove = toRemove.stream().filter((creature)->(creature.getHitPoints() <= 0)).collect(
