@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
-import org.jooq.util.derby.sys.Sys;
 
 public class Player {
   private final String name;

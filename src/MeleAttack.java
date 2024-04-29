@@ -5,8 +5,8 @@ public class MeleAttack extends IAttack{
     super(((c)-> c.takeDamage(damage)),1);
     super.setAttackDescription(damage,1);
   }
-
   public MeleAttack(int minDamage,int maxDamage){
+    //get random number
     super((c)->
         {Random r = new Random();
           int damage = r.nextInt(minDamage,maxDamage);
